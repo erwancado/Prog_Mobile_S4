@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="buttonPlus">+</string>
+    <string name="firstNumber" />
+    <string name="secondNumber" />
+    <string name="result">Résultat</string>
+    <string name="substract">-</string>
+    <string name="multiply">*</string>
+    <string name="divide">/</string>
+</resources>
