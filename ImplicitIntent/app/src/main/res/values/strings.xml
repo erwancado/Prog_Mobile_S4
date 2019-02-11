@@ -3,4 +3,10 @@
     <string name="en_attente">En attente</string>
     <string name="envoyer">Envoyer</string>
     <string name="retour">Retour</string>
+    <string name="nom">Nom</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="num_ro">Numéro</string>
+    <string name="modifier">Modifier</string>
+    <string name="valider">Valider</string>
+    <string name="annuler">Annuler</string>
 </resources>

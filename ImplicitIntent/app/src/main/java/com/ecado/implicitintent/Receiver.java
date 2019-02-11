@@ -13,8 +13,8 @@ public class Receiver extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receiver);
-        Intent intention = getIntent();
-        String message=intention.getStringExtra("com.ecado.message");
+        Intent messageIntent = getIntent();
+        String message=messageIntent.getStringExtra("com.ecado.message");
         ((TextView) findViewById(R.id.displayMessage)).setText(message);
         final Intent backIntent = new Intent(this,MainActivity.class);
         Button back = findViewById(R.id.back);
