@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ImplicitIntents</string>
+    <string name="sms">SMS</string>
+    <string name="mms">MMS</string>
+    <string name="appel">Appel</string>
+    <string name="web">Web</string>
+    <string name="map">Map</string>
+    <string name="https">https://</string>
+    <string name="lat">Lat.</string>
+    <string name="longitude">Long.</string>
+</resources>
