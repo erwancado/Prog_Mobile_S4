@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Image</string>
+    <string name="charger">Charger</string>
+    <string name="imagetoload">imageToLoad</string>
+    <string name="miroir_horizontal">Miroir horizontal</string>
+    <string name="miroir_vertical">Miroir vertical</string>
+</resources>
