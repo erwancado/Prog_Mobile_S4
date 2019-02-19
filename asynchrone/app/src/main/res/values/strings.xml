@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Asynchrone</string>
+    <string name="charger">Charger</string>
+    <string name="donn_es">Données</string>
+    <string name="city">Pessac</string>
+    <string name="dataDisplay">Météo</string>
+</resources>
