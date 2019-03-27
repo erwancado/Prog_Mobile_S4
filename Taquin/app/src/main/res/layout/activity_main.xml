@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_main"
+    android:paddingLeft="16.0dip"
+    android:paddingTop="16.0dip"
+    android:paddingRight="16.0dip"
+    android:paddingBottom="16.0dip"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:textSize="16.0sp"
+        android:id="@+id/choixImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/imagesinfo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:textSize="16.0sp"
+        android:id="@+id/spinnerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50.0dip"
+        android:text="@string/spinnerinfo"
+        android:layout_below="@+id/selectionInfo"
+        android:layout_alignParentStart="true" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/images"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14.0dip"
+        android:layout_below="@+id/choixImage"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/selectedImageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/selectionInfo"
+        android:layout_toEndOf="@+id/selectionInfo" />
+    <TextView android:id="@id/selectionInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36.0dip"
+        android:text="@string/slectionimageinfo"
+        android:layout_below="@id/images"
+        android:layout_alignParentStart="true" />
+    <Spinner android:id="@+id/gridSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19.0dip"
+        android:layout_below="@id/spinnerInfo"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:textColor="@android:color/white"
+        android:id="@+id/scoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20.0dip"
+        android:text="@string/scores"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLeaderboardButton"
+        android:elevation="2.0dip"
+        android:backgroundTint="@color/colorPrimary" />
+    <Button
+        android:textColor="@android:color/white"
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:layout_above="@id/scoreButton"
+        android:onClick="onPlayButton"
+        android:layout_alignStart="@+id/scoreButton"
+        android:layout_alignEnd="@+id/scoreButton"
+        android:elevation="2.0dip"
+        android:backgroundTint="@color/colorPrimary" />
+
+</RelativeLayout>

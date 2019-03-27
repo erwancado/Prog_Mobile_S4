@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Taquin</string>
+    <string name="image">image</string>
+    <string name="spinnerinfo">Sélectionnez une taille de grille</string>
+    <string name="imagesinfo">Selectionnez une image</string>
+    <string name="slectionimageinfo">Vous avez sélectionné</string>
+    <string name="play">Jouer</string>
+    <string name="scores">Meilleurs scores</string>
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+    <string name="menu">Menu</string>
+    <string name="restart">Relancer</string>
+    <string-array name="image_ids">
+        <item>@drawable/jaguar</item>
+        <item>@drawable/ocelot</item>
+        <item>@drawable/tigre</item>
+    </string-array>
+</resources>
