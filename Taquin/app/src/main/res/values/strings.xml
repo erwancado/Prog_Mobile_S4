@@ -20,5 +20,4 @@
         <item>@drawable/ocelot</item>
         <item>@drawable/tigre</item>
     </string-array>
-    <string name="winDialogNewGame" translatable="false">No</string>
 </resources>

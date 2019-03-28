@@ -1,6 +1,6 @@
 package com.ecado.taquin;
 
-public class ImageItem {
+class ImageItem {
     private String title;
     private Integer imageURL;
 
@@ -13,15 +13,7 @@ public class ImageItem {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getImageURL() {
+    Integer getImageURL() {
         return imageURL;
-    }
-
-    public void setImageURL(int imageURL) {
-        this.imageURL = imageURL;
     }
 }

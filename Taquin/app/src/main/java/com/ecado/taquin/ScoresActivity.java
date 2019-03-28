@@ -12,28 +12,29 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class ScoresActivity extends AppCompatActivity {
-
+    /**
+     * Transform the string containing the scores into a list to display
+     * @param scores string of scores
+     * @return a list of scores
+     */
     private List<String> scoresToList(String scores){
         ArrayList<String> scoresList = new ArrayList<>();
-        if(scores==null)
-            scoresList.add("Aucun score à afficher");
-        else{
-            ArrayList<Long> scoreValues = new ArrayList<>();
-            int i=0;
-            while (i<scores.length()){
-                String rest = scores.substring(i);
-                int end = rest.indexOf(';')+i;
-                String score = scores.substring(i,end);
-                scoreValues.add(Long.valueOf(score));
-                i=end+1;
-            }
-            Collections.sort(scoreValues);
-            Collections.reverse(scoreValues);
-            for(long scoreValue : scoreValues)
-                scoresList.add((scoreValues.indexOf(scoreValue)+1)+".  --  "+String.valueOf(scoreValue));
+        ArrayList<Long> scoreValues = new ArrayList<>();
+        int i=0;
+        while (i<scores.length()){
+            String rest = scores.substring(i);
+            int end = rest.indexOf(';')+i;
+            String score = scores.substring(i,end);
+            scoreValues.add(Long.valueOf(score));
+            i=end+1;
         }
+        Collections.sort(scoreValues);
+        Collections.reverse(scoreValues);
+        for(long scoreValue : scoreValues)
+            scoresList.add((scoreValues.indexOf(scoreValue)+1)+".  --  "+String.valueOf(scoreValue));
         return scoresList;
     }
     @Override
@@ -42,7 +43,7 @@ public class ScoresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scores);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         ListView scoresList = findViewById(R.id.scoresListView);
-        scoresList.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,scoresToList(sharedPreferences.getString("scores",null))));
+        scoresList.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,scoresToList(Objects.requireNonNull(sharedPreferences.getString("scores", null)))));
     }
 
     public void onMenuButton(View view) {

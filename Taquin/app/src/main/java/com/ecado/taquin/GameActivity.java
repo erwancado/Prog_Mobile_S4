@@ -1,14 +1,11 @@
 package com.ecado.taquin;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -66,7 +63,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void onMenuButton(View paramView)
+    /**
+     * Come back to the menu when the button is pressed
+     * @param view
+     */
+    public void onMenuButton(View view)
     {
         gameChrono.stop();
         startActivity(new Intent(this, MainActivity.class));
@@ -79,7 +80,11 @@ public class GameActivity extends AppCompatActivity {
         gameChrono.stop();
     }
 
-    public void onPauseButton(View paramView)
+    /**
+     * Pause the game or resume the game if it is already paused
+     * @param view
+     */
+    public void onPauseButton(View view)
     {
         if (isPaused)
         {
@@ -96,7 +101,11 @@ public class GameActivity extends AppCompatActivity {
         ((Button)findViewById(R.id.pauseButton)).setText(R.string.start);
     }
 
-    public void onRestartButton(View paramView)
+    /**
+     * Restart the game
+     * @param view
+     */
+    public void onRestartButton(View view)
     {
         gameChrono.setBase(SystemClock.elapsedRealtime());
         pauseTime = 0L;
@@ -104,6 +113,9 @@ public class GameActivity extends AppCompatActivity {
         recyclerView.setAdapter(new GameAdapter(this.imagePieces));
     }
 
+    /**
+     * Divide the chosen image into shuffled pieces to fill the grid
+     */
     private void getPiecesFromImage()
     {
         imagePieces=new ArrayList<>();
@@ -114,6 +126,9 @@ public class GameActivity extends AppCompatActivity {
         mixImagePieces();
     }
 
+    /**
+     * Randomly mix the pieces
+     */
     private void mixImagePieces()
     {
         int i = new Random().nextInt(gridSize * gridSize);
@@ -147,6 +162,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Check if all the pieces came back to their initial position
+     * @return true if it is the case or false if it is not
+     */
     private boolean checkGameFinished()
     {
         boolean bool = true;
@@ -169,6 +188,10 @@ public class GameActivity extends AppCompatActivity {
             sharedPrefs.edit().putString("scores",scores.concat(String.valueOf(score)+";")).apply();
     }
 
+    /**
+     * Adapter for the recycler view containing the pieces with method to move pieces and display
+     * dialog at the end of the game
+     */
     public class GameAdapter
             extends RecyclerView.Adapter<GameAdapter.MyViewHolder>
     {
@@ -184,9 +207,10 @@ public class GameActivity extends AppCompatActivity {
             return this.imageDataList.size();
         }
 
-        public MyViewHolder onCreateViewHolder(ViewGroup paramViewGroup, int paramInt)
+        @NonNull
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int paramInt)
         {
-            return new MyViewHolder(LayoutInflater.from(paramViewGroup.getContext()).inflate(R.layout.image_piece_layout, paramViewGroup, false));
+            return new MyViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.image_piece_layout, viewGroup, false));
         }
 
         @Override
@@ -194,6 +218,10 @@ public class GameActivity extends AppCompatActivity {
             myViewHolder.currentImage.setImageBitmap(imageDataList.get(i).getBmp());
             myViewHolder.currentLabel.setText(String.valueOf(imageDataList.get(i).getInitialPosition()));
             myViewHolder.currentImage.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Move the chosen piece in the empty case
+                 * @param i position of the chosen piece
+                 */
                 private void switchPieces(int i)
                 {
                     if ((i - 1 >= 0) && (i - 1 < gridSize*gridSize) && ((imagePieces.get(i - 1)).getBmp()==null))
@@ -226,7 +254,7 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 }
-                private void createChooseActionDialog(long finalTime)
+                private void createChooseActionDialog()
                 {
                     DialogInterface.OnClickListener restartClick = new DialogInterface.OnClickListener()
                     {
@@ -275,7 +303,7 @@ public class GameActivity extends AppCompatActivity {
                             gameChrono.stop();
                             score-=finalTime*1000+movesNumber*10;
                             saveScore();
-                            createChooseActionDialog(score);
+                            createChooseActionDialog();
                         }
                     }
                 }
@@ -288,11 +316,11 @@ public class GameActivity extends AppCompatActivity {
             private ImageView currentImage;
             private TextView currentLabel;
 
-            MyViewHolder(View paramView)
+            MyViewHolder(View view)
             {
-                super(paramView);
-                this.currentImage = ((ImageView)paramView.findViewById(R.id.gameImageView));
-                this.currentLabel = ((TextView)paramView.findViewById(R.id.initialPosition));
+                super(view);
+                this.currentImage = ((ImageView)view.findViewById(R.id.gameImageView));
+                this.currentLabel = ((TextView)view.findViewById(R.id.initialPosition));
             }
         }
     }

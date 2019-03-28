@@ -1,26 +1,18 @@
 package com.ecado.taquin;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,14 +22,13 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Main activity of the game with the menu
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView imagesRecyclerView;
-    private ImageAdapter adapter;
     private int[] images = {R.drawable.jaguar,R.drawable.ocelot,R.drawable.tigre,R.drawable.lynx};
     private String[] texts = {"Jaguar","Ocelot","Tigre","Lynx"};
-    private RecyclerView.LayoutManager layoutManager;
-    private TextView selectInfoText;
     private SharedPreferences preferences;
     private int selectedImage = images[0];
     private TextView selectedImageLabel;
@@ -47,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        selectInfoText=findViewById(R.id.selectionInfo);
+        TextView selectInfoText = findViewById(R.id.selectionInfo);
         gridChoice = findViewById(R.id.gridSpinner);
         ArrayList<String> grids = new ArrayList<>();
         grids.add("3x3");
@@ -57,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,grids);
         gridChoice.setAdapter(arrayAdapter);
         selectedImageLabel=findViewById(R.id.selectedImageName);
-        imagesRecyclerView = (RecyclerView) findViewById(R.id.images);
-        layoutManager=new LinearLayoutManager(this,0,false);
+        RecyclerView imagesRecyclerView = (RecyclerView) findViewById(R.id.images);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, 0, false);
         imagesRecyclerView.setHasFixedSize(true);
         imagesRecyclerView.setLayoutManager(layoutManager);
         items = new ArrayList<>();
         for (int i=0;i<images.length;i++)
             items.add(new ImageItem(texts[i],images[i]));
-        adapter=new ImageAdapter(items);
+        ImageAdapter adapter = new ImageAdapter(items);
         imagesRecyclerView.setAdapter(adapter);
         imagesRecyclerView.setClickable(true);
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -87,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         selectedImageLabel.setText(" "+ getLabel(selectedImage)+".");
     }
 
+    /**
+     * Start a game when the play button is pressed
+     * @param view
+     */
     public void onPlayButton(View view){
         int i = Integer.parseInt(String.valueOf(this.gridChoice.getSelectedItem().toString().charAt(0)));
         preferences.edit().putInt("game_image",selectedImage)
@@ -96,24 +91,36 @@ public class MainActivity extends AppCompatActivity {
         startActivity(startGame);
     }
 
-    private String getLabel(int paramInt)
+    /**
+     * Get an image title from its id
+     * @param imageId id
+     * @return title
+     */
+    private String getLabel(int imageId)
     {
         Iterator localIterator = this.items.iterator();
         while (localIterator.hasNext())
         {
             ImageItem img = (ImageItem) localIterator.next();
-            if (img.getImageURL() == paramInt) {
+            if (img.getImageURL() == imageId) {
                 return img.getTitle();
             }
         }
         return ((ImageItem)this.items.get(0)).getTitle();
     }
 
+    /**
+     * Display the leaderbord when the button is pressed
+     * @param view
+     */
     public void onLeaderboardButton(View view) {
         Intent scoresIntent = new Intent(this,ScoresActivity.class);
         startActivity(scoresIntent);
     }
 
+    /**
+     * Adapter for the recycler view containing the images
+     */
     public class ImageAdapter
             extends RecyclerView.Adapter<ImageAdapter.MyViewHolder>
     {
@@ -129,24 +136,29 @@ public class MainActivity extends AppCompatActivity {
             return this.imageDataList.size();
         }
 
-        public void onBindViewHolder(final MyViewHolder paramMyViewHolder, int paramInt)
+        public void onBindViewHolder(@NonNull final MyViewHolder viewHolder, int paramInt)
         {
-            paramMyViewHolder.currentImage.setImageBitmap(Tools.decodeSampledBitmap(MainActivity.this.getResources(),
+            viewHolder.currentImage.setImageBitmap(Tools.decodeSampledBitmap(MainActivity.this.getResources(),
                     ((ImageItem) this.imageDataList.get(paramInt)).getImageURL(), 150, 150));
-            paramMyViewHolder.currentLabel.setText(((ImageItem)this.imageDataList.get(paramInt)).getTitle());
-            paramMyViewHolder.currentImage.setOnClickListener(new View.OnClickListener()
+            viewHolder.currentLabel.setText(((ImageItem)this.imageDataList.get(paramInt)).getTitle());
+            viewHolder.currentImage.setOnClickListener(new View.OnClickListener()
             {
-                public void onClick(View paramAnonymousView)
+                /**
+                 * Get the image selected by a click and display its title
+                 * @param view the clicked imageView
+                 */
+                public void onClick(View view)
                 {
-                    selectedImage=((ImageItem)MainActivity.ImageAdapter.this.imageDataList.get(paramMyViewHolder.getAdapterPosition())).getImageURL();
-                    selectedImageLabel.setText(" " + ((ImageItem)MainActivity.ImageAdapter.this.imageDataList.get(paramMyViewHolder.getAdapterPosition())).getTitle() + ".");
+                    selectedImage=((ImageItem)MainActivity.ImageAdapter.this.imageDataList.get(viewHolder.getAdapterPosition())).getImageURL();
+                    selectedImageLabel.setText(" " + ((ImageItem)MainActivity.ImageAdapter.this.imageDataList.get(viewHolder.getAdapterPosition())).getTitle() + ".");
                 }
             });
         }
 
-        public MyViewHolder onCreateViewHolder(ViewGroup paramViewGroup, int paramInt)
+        @NonNull
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int paramInt)
         {
-            return new MyViewHolder(LayoutInflater.from(paramViewGroup.getContext()).inflate(R.layout.image_item_layout, paramViewGroup, false));
+            return new MyViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.image_item_layout, viewGroup, false));
         }
 
         class MyViewHolder

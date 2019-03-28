@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-public class Tools {
+class Tools {
     private static int calculateInSampleSize(BitmapFactory.Options paramOptions, int paramInt1, int paramInt2)
     {
         int k = paramOptions.outHeight;
@@ -31,7 +31,7 @@ public class Tools {
         return j;
     }
 
-    public static Bitmap decodeSampledBitmap(Resources paramResources, int paramInt1, int paramInt2, int paramInt3)
+    static Bitmap decodeSampledBitmap(Resources paramResources, int paramInt1, int paramInt2, int paramInt3)
     {
         BitmapFactory.Options localOptions = new BitmapFactory.Options();
         localOptions.inJustDecodeBounds = true;
@@ -41,7 +41,7 @@ public class Tools {
         return BitmapFactory.decodeResource(paramResources, paramInt1, localOptions);
     }
 
-    public static Bitmap[] splitBitmap(Bitmap picture, int gridSize, int width, int height)
+    static Bitmap[] splitBitmap(Bitmap picture, int gridSize, int width, int height)
     {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(picture, width, height, true);
         Bitmap[] imgs = new Bitmap[gridSize*gridSize];

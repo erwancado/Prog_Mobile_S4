@@ -2,20 +2,20 @@ package com.ecado.taquin;
 
 import android.graphics.Bitmap;
 
-public class ImagePiece {
+class ImagePiece {
     private Bitmap bmp;
     private int initialPosition;
 
-    public ImagePiece(Bitmap bmp, int initialPosition) {
+    ImagePiece(Bitmap bmp, int initialPosition) {
         this.bmp = bmp;
         this.initialPosition = initialPosition;
     }
 
-    public Bitmap getBmp() {
+    Bitmap getBmp() {
         return bmp;
     }
 
-    public int getInitialPosition() {
+    int getInitialPosition() {
         return initialPosition;
     }
 }
