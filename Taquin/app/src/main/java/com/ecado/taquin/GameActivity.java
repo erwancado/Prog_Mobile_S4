@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         this.gameChrono = ((Chronometer)findViewById(R.id.gameChrono));
         this.movesNumber = 0;
-        this.score = 0L;
+        this.score = 10000;
         this.isPaused = false;
         this.sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         this.imageID = this.sharedPrefs.getInt("game_image", 0);
@@ -252,11 +252,11 @@ public class GameActivity extends AppCompatActivity {
                         }
                     };
                     AlertDialog.Builder chooseActionDialog = new AlertDialog.Builder(myViewHolder.currentImage.getContext());
-                    chooseActionDialog.setTitle("C'est gagné !");
-                    chooseActionDialog.setMessage("Vous avez un score de "+score+".\nQue voulez-vous faire ?");
-                    chooseActionDialog.setPositiveButton("Nouvelle partie", restartClick);
-                    chooseActionDialog.setNeutralButton("Menu", menuClick);
-                    chooseActionDialog.setNegativeButton("Scores", scoresClick);
+                    chooseActionDialog.setTitle(R.string.winDialogTitle);
+                    chooseActionDialog.setMessage(R.string.winDialogMessage1+score+".\n"+R.string.winDialogMessage2);
+                    chooseActionDialog.setPositiveButton(R.string.winDialogNewGame, restartClick);
+                    chooseActionDialog.setNeutralButton(R.string.menu, menuClick);
+                    chooseActionDialog.setNegativeButton(R.string.scores, scoresClick);
                     chooseActionDialog.create();
                     chooseActionDialog.setCancelable(false);
                     chooseActionDialog.show();
@@ -264,7 +264,7 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (isPaused) {
-                        Toast.makeText(getApplicationContext(), "Le jeu est en pause.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.pauseMessage, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         switchPieces(myViewHolder.getAdapterPosition());
@@ -273,7 +273,7 @@ public class GameActivity extends AppCompatActivity {
                             long finalTime = SystemClock.elapsedRealtime() - gameChrono.getBase();
                             finalTime=TimeUnit.MILLISECONDS.toSeconds(finalTime);
                             gameChrono.stop();
-                            score=finalTime*1000+movesNumber*10;
+                            score-=finalTime*1000+movesNumber*10;
                             saveScore();
                             createChooseActionDialog(score);
                         }

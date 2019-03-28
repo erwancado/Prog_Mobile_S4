@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Taquin</string>
+    <string name="image">image</string>
+    <string name="spinnerinfo">Select a grid size</string>
+    <string name="imagesinfo">Select an image</string>
+    <string name="slectionimageinfo">You chose</string>
+    <string name="play">Play</string>
+    <string name="scores">Leaderboard</string>
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+    <string name="menu">Menu</string>
+    <string name="restart">Replay</string>
+    <string name="winDialogTitle">You win !</string>
+    <string name="winDialogMessage1">You got a score of</string>
+    <string name="winDialogMessage2">What do you want to do ?</string>
+    <string name="winDialogNewGame">New game</string>
+    <string name="pauseMessage">The game is paused</string>
+</resources>

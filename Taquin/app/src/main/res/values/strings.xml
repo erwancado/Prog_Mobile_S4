@@ -10,9 +10,15 @@
     <string name="start">Start</string>
     <string name="menu">Menu</string>
     <string name="restart">Relancer</string>
+    <string name="winDialogTitle">C\'est gagné !</string>
+    <string name="winDialogMessage1">Vous avez un score de </string>
+    <string name="winDialogMessage2">Que voulez-vous faire ?</string>
+    <string name="winDialogNewGame">Nouvelle partie</string>
+    <string name="pauseMessage">Le jeu est en pause.</string>
     <string-array name="image_ids">
         <item>@drawable/jaguar</item>
         <item>@drawable/ocelot</item>
         <item>@drawable/tigre</item>
     </string-array>
+    <string name="winDialogNewGame" translatable="false">No</string>
 </resources>
